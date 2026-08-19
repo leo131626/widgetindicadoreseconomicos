@@ -1,33 +1,63 @@
-<div style="width:100%;max-width:100%;">
-  <iframe
-    src="https://valorfinal.com.br/embed/indicadores?theme=dark"
-    title="Indicadores econômicos hoje - ValorFinal"
-    data-valorfinal-embed
-    width="100%"
-    height="210"
-    style="display:block;border:0;width:100%;min-width:100%;"
-    loading="lazy"
-  ></iframe>
-  <p style="font:13px sans-serif;margin:6px 0 0">
-    Indicadores econômicos hoje por
-    <a href="https://valorfinal.com.br/indicadores-economicos-hoje?utm_source=embed&utm_medium=widget&utm_campaign=indicadores" target="_blank" rel="noopener">ValorFinal</a>
-  </p>
-</div>
-
-<script>
-(function () {
-  if (window.__vfEmbed) return;
-  window.__vfEmbed = 1;
-  window.addEventListener("message", function (e) {
-    if (e.origin !== "https://valorfinal.com.br") return;
-    var d = e.data;
-    if (!d || d.type !== "valorfinal:embed-height" || typeof d.height !== "number") return;
-    var frames = document.querySelectorAll("iframe[data-valorfinal-embed]");
-    for (var i = 0; i < frames.length; i++) {
-      if (frames[i].contentWindow === e.source) {
-        frames[i].style.height = Math.max(d.height, 210) + "px";
-      }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indicadores Econômicos Hoje - ValorFinal</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
     }
-  });
-})();
-</script>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .vf-widget-wrapper {
+      width: 100%;
+    }
+    .vf-widget-wrapper iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="vf-widget-wrapper">
+    <iframe
+      src="https://valorfinal.com.br/embed/indicadores?theme=dark"
+      title="Indicadores econômicos hoje - ValorFinal"
+      data-valorfinal-embed
+      height="210"
+      loading="lazy"
+    ></iframe>
+    <p style="font:13px sans-serif;margin:6px 0 0">
+      Indicadores econômicos hoje por
+      <a href="https://valorfinal.com.br/indicadores-economicos-hoje?utm_source=embed&utm_medium=widget&utm_campaign=indicadores" target="_blank" rel="noopener">ValorFinal</a>
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      if (window.__vfEmbed) return;
+      window.__vfEmbed = 1;
+      window.addEventListener("message", function (e) {
+        if (e.origin !== "https://valorfinal.com.br") return;
+        var d = e.data;
+        if (!d || d.type !== "valorfinal:embed-height" || typeof d.height !== "number") return;
+        var frames = document.querySelectorAll("iframe[data-valorfinal-embed]");
+        for (var i = 0; i < frames.length; i++) {
+          if (frames[i].contentWindow === e.source) {
+            frames[i].style.height = Math.max(d.height, 210) + "px";
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
