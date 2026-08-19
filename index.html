@@ -18,29 +18,46 @@ html, body {
 }
 
 #viewport {
+    position: fixed;
+    inset: 0;
+
     width: 100vw;
     height: 100vh;
+
+    overflow: hidden;
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    overflow: hidden;
 }
 
-#widget {
-    width: 420px;
-    height: 210px;
+#widget-wrapper {
+
+    /*
+    Área REAL do iframe.
+    Deixamos maior para evitar o corte.
+    */
+    width: 840px;
+    height: 420px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+iframe {
+
+    width: 840px;
+    height: 420px;
 
     border: 0;
 
     display: block;
 
-    /*
-    AUMENTE OU DIMINUA ESTE VALOR
-    conforme o tamanho desejado.
-    */
-    zoom: 2;
+    margin: 0;
+    padding: 0;
 }
 
 </style>
@@ -51,13 +68,16 @@ html, body {
 
 <div id="viewport">
 
-    <iframe
-        id="widget"
-        src="https://valorfinal.com.br/embed/indicadores?theme=dark"
-        title="Indicadores econômicos hoje - ValorFinal"
-        frameborder="0"
-        scrolling="no">
-    </iframe>
+    <div id="widget-wrapper">
+
+        <iframe
+            src="https://valorfinal.com.br/embed/indicadores?theme=dark"
+            title="Indicadores econômicos hoje - ValorFinal"
+            frameborder="0"
+            scrolling="no">
+        </iframe>
+
+    </div>
 
 </div>
 
