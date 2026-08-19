@@ -20,24 +20,35 @@ html, body {
 #viewport {
     position: fixed;
     inset: 0;
-    width: 100%;
-    height: 100%;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     overflow: hidden;
 }
 
 #zoom-container {
-    position: absolute;
 
+    /*
+    Tamanho original do widget
+    */
     width: 420px;
     height: 210px;
 
-    left: 50%;
-    top: 50%;
+    /*
+    Impede qualquer corte do conteúdo
+    */
+    flex-shrink: 0;
 
     transform-origin: center center;
 }
 
 iframe {
+
     width: 420px;
     height: 210px;
 
@@ -45,8 +56,7 @@ iframe {
 
     display: block;
 
-    margin: 0;
-    padding: 0;
+    overflow: hidden;
 }
 
 </style>
@@ -72,42 +82,51 @@ iframe {
 
 <script>
 
-function ajustarTamanho() {
+function ajustarWidget() {
 
     const viewport = document.getElementById("viewport");
     const container = document.getElementById("zoom-container");
 
-    const largura = viewport.clientWidth;
-    const altura = viewport.clientHeight;
+    const larguraTela = viewport.clientWidth;
+    const alturaTela = viewport.clientHeight;
 
-    const larguraOriginal = 420;
-    const alturaOriginal = 210;
-
-    /*
-    Calcula quanto o widget pode crescer
-    sem ultrapassar os limites da tela.
-    */
-
-    const escalaHorizontal = largura / larguraOriginal;
-    const escalaVertical = altura / alturaOriginal;
+    const larguraWidget = 420;
+    const alturaWidget = 210;
 
     /*
-    Usa a menor escala para garantir
-    que nenhuma parte seja cortada.
+    Calcula a escala máxima que cabe
+    completamente dentro da tela.
     */
 
-    const escala = Math.min(
-        escalaHorizontal,
-        escalaVertical
-    ) * 0.95;
+    let escalaLargura = larguraTela / larguraWidget;
+    let escalaAltura = alturaTela / alturaWidget;
+
+    let escala = Math.min(
+        escalaLargura,
+        escalaAltura
+    );
+
+    /*
+    Reduz um pouco para garantir que
+    nada fique encostado nas bordas.
+    */
+
+    escala = escala * 0.85;
+
+    /*
+    Aplica a escala.
+    */
 
     container.style.transform =
-        `translate(-50%, -50%) scale(${escala})`;
+        `scale(${escala})`;
 }
 
-ajustarTamanho();
+ajustarWidget();
 
-window.addEventListener("resize", ajustarTamanho);
+window.addEventListener(
+    "resize",
+    ajustarWidget
+);
 
 </script>
 
